@@ -66,7 +66,7 @@ async function resolveChoices(args: CliArgs) {
 
   let apiKey = args.apiKey;
   if (apiKey === undefined && interactive && !args.yes) {
-    const v = answer(await p.password({ message: 'tode API key (Enter to skip; get one at https://app.usetode.dev)', mask: '*' }));
+    const v = answer(await p.password({ message: 'tode API key (Enter to skip; get one at https://usetode.dev)', mask: '*' }));
     apiKey = String(v ?? '').trim() || undefined;
   }
 
@@ -143,7 +143,7 @@ async function main() {
     c.install ? '' : `${c.pm} install`,
     `${c.pm} run dev`,
     'In Figma Desktop: Plugins → Development → Import plugin from manifest → manifest.json',
-    c.apiKey ? '' : 'Analytics: copy .env.example to .env and set TODE_API_KEY (https://app.usetode.dev)',
+    c.apiKey ? '' : 'Analytics: copy .env.example to .env and set TODE_API_KEY (https://usetode.dev)',
     'Coding agents: AGENTS.md explains the project',
   ].filter(Boolean);
   if (interactive) {

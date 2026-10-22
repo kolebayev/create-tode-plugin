@@ -27,4 +27,4 @@ The example tracks `rectangles_created` (main thread, with the count as a metric
 
 ## Publish
 
-Build, then in Figma Desktop: Plugins → Development → the plugin → Publish. Paste the id Figma shows into `manifest.json`.
+Build with `.env` in place, then in Figma Desktop: Plugins → Development → the plugin → Publish. Paste the id Figma shows into `manifest.json`. The checklist with the usual mistakes: [docs.usetode.dev/publish](https://docs.usetode.dev/publish).

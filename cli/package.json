@@ -1,6 +1,6 @@
 {
   "name": "@tode-sdk/create",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scaffold a Figma plugin with tode analytics wired in: React, Vue, Svelte or vanilla TS, Vite or esbuild",
   "type": "module",
   "bin": { "create-tode-plugin": "dist/index.js" },
