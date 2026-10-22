@@ -1,0 +1,14 @@
+{
+  "name": "tode-template-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["cli"],
+  "scripts": {
+    "build": "npm run build -w @tode-sdk/create",
+    "test": "npm test -w @tode-sdk/create",
+    "typecheck": "npm run typecheck -w @tode-sdk/create",
+    "check": "npm run build && npm run typecheck && npm test",
+    "bump-deps": "node scripts/bump-deps.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
