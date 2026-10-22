@@ -1,0 +1,30 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run check
+  matrix:
+    needs: unit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react, vue, svelte, vanilla]
+        bundler: [vite, esbuild]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: node cli/dist/index.js "$RUNNER_TEMP/out" --framework ${{ matrix.framework }} --bundler ${{ matrix.bundler }} --yes --no-install --no-git
+      - run: npm install
+        working-directory: ${{ runner.temp }}/out
+      - run: npm run check
+        working-directory: ${{ runner.temp }}/out

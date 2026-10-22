@@ -1,0 +1,34 @@
+name: sync-template-repo
+
+# On every release, regenerate kolebayev/figma-plugin-template-with-tode (React + Vite)
+# so the "Use this template" repo never drifts from the generator.
+# Needs secret TEMPLATE_REPO_TOKEN: a fine-grained PAT with contents:write on that repo.
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: node cli/dist/index.js "$RUNNER_TEMP/gen" --name "Figma plugin template with tode" --framework react --bundler vite --yes --no-install --no-git
+      - run: cp template-repo/README.md "$RUNNER_TEMP/gen/README.md"
+      - name: Push into the template repository
+        env:
+          TOKEN: ${{ secrets.TEMPLATE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          git clone "https://x-access-token:${TOKEN}@github.com/kolebayev/figma-plugin-template-with-tode.git" "$RUNNER_TEMP/repo"
+          cd "$RUNNER_TEMP/repo"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R "$RUNNER_TEMP/gen/." .
+          git add -A
+          git diff --cached --quiet && { echo "no changes"; exit 0; }
+          git commit -m "chore: regenerate from create-tode-plugin ${GITHUB_REF_NAME}"
+          git push origin HEAD:main

@@ -1,0 +1,28 @@
+name: publish
+
+# Push a tag `v<version>` (e.g. v0.1.0) to publish @tode-sdk/create.
+# Auth is npm trusted publishing (OIDC): no token secret. The package must list
+# this repository and this workflow as a trusted publisher on npmjs.com, which is
+# only possible once it exists, so the first release is `npm publish` by hand from cli/.
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, registry-url: https://registry.npmjs.org, cache: npm }
+      - run: npm ci
+      - run: npm run check
+      - name: Check tag matches package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          ver="$(node -p "require('./cli/package.json').version")"
+          test "$tag" = "$ver" || { echo "tag $tag != cli version $ver"; exit 1; }
+      - run: npm publish --access public
+        working-directory: cli
