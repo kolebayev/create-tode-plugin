@@ -1,0 +1,3 @@
+# tode API key for this plugin. Get one at https://app.usetode.dev (free plan, no card).
+# Leave empty to run without analytics.
+TODE_API_KEY=

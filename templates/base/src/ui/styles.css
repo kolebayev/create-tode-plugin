@@ -1,0 +1,60 @@
+/* Figma sets --figma-color-* inside the iframe when showUI() has themeColors: true.
+   The fallbacks make the UI readable in `npm run preview` outside Figma. */
+:root {
+  color-scheme: light dark;
+}
+body {
+  margin: 0;
+  padding: 16px;
+  font: 12px/1.5 Inter, system-ui, sans-serif;
+  color: var(--figma-color-text, #1e1e1e);
+  background: var(--figma-color-bg, #ffffff);
+}
+h1 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+input {
+  padding: 6px 8px;
+  border: 1px solid var(--figma-color-border, #e6e6e6);
+  border-radius: 4px;
+  background: var(--figma-color-bg-secondary, #f5f5f5);
+  color: inherit;
+  font: inherit;
+}
+.row {
+  display: flex;
+  gap: 8px;
+}
+button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--figma-color-bg-brand, #0d99ff);
+  color: var(--figma-color-text-onbrand, #ffffff);
+  font: inherit;
+  cursor: pointer;
+}
+button.secondary {
+  background: var(--figma-color-bg-secondary, #f5f5f5);
+  color: inherit;
+}
+button.link {
+  padding: 0;
+  margin-top: 12px;
+  background: none;
+  color: var(--figma-color-text-brand, #0d99ff);
+}
+.muted {
+  color: var(--figma-color-text-secondary, #666666);
+}
+code {
+  font-family: ui-monospace, monospace;
+}

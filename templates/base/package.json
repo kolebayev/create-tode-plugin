@@ -1,0 +1,30 @@
+{
+  "name": "__TPL_SLUG__",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "__TPL_NAME__, a Figma plugin with tode analytics",
+  "scripts": {
+    "dev": "node scripts/build.mjs --watch",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs",
+    "typecheck": "tsc --noEmit -p src/main/tsconfig.json && tsc --noEmit -p src/ui/tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build && node scripts/check-manifest.mjs"
+  },
+  "dependencies": {
+    "@tode-sdk/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@figma/eslint-plugin-figma-plugins": "^1.0.0",
+    "@figma/plugin-typings": "^1.142.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^5.0.0"
+  },
+  "engines": { "node": ">=20" }
+}

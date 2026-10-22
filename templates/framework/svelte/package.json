@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "typecheck": "tsc --noEmit -p src/main/tsconfig.json && svelte-check --tsconfig ./src/ui/tsconfig.json"
+  },
+  "dependencies": {
+    "@tode-sdk/figma-svelte": "^1.0.0",
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "svelte-check": "^4.0.0"
+  }
+}

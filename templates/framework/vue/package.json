@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "typecheck": "tsc --noEmit -p src/main/tsconfig.json && vue-tsc --noEmit -p src/ui/tsconfig.json"
+  },
+  "dependencies": {
+    "@tode-sdk/figma-vue": "^1.0.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "vue-tsc": "^3.0.0"
+  }
+}
