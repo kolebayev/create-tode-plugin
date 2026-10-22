@@ -17,6 +17,9 @@ jobs:
       - run: npm run build
       - run: node cli/dist/index.js "$RUNNER_TEMP/gen" --name "Figma plugin template with tode" --framework react --bundler vite --yes --no-install --no-git
       - run: cp template-repo/README.md "$RUNNER_TEMP/gen/README.md"
+      # The template repo runs `npm ci` in its CI, so it needs a lock file.
+      - run: npm install --package-lock-only --ignore-scripts
+        working-directory: ${{ runner.temp }}/gen
       - name: Push into the template repository
         env:
           TOKEN: ${{ secrets.TEMPLATE_REPO_TOKEN }}
